@@ -110,6 +110,14 @@ var Main = class {
     _onClick(that) {
         that.ship.onClick()
     }
+
+    _touchMove(that, event) {
+        if (event.touches.length === 2)
+            that.ship.onClick();
+
+        if (event.touches.length === 1)
+            that._mouseMove(that, event.touches[0]);
+    }
 }
 
 
@@ -119,7 +127,10 @@ window.addEventListener("load", function () {
 });
 window.addEventListener("mousemove", function (event) {
     main._mouseMove(main, event);
-})
+});
+window.addEventListener("touchmove", function (event) {
+    main._touchMove(main, event);
+});
 window.addEventListener("click", function (event) {
     main._onClick(main);
-})
+});
