@@ -27,6 +27,7 @@ var Main = class {
     resetGame() {
         this.meteorHandler.reset();
         this.score = -1;
+        this.ship.reset();
     }
 
     initCanvas() {
@@ -105,6 +106,10 @@ var Main = class {
             that.initCanvas();
         });
     }
+
+    _onClick(that) {
+        that.ship.onClick()
+    }
 }
 
 
@@ -114,4 +119,7 @@ window.addEventListener("load", function () {
 });
 window.addEventListener("mousemove", function (event) {
     main._mouseMove(main, event);
+})
+window.addEventListener("click", function (event) {
+    main._onClick(main);
 })

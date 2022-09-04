@@ -10,12 +10,22 @@ var MeteorHandler = class {
     update(ship) {
         // Add meteor
         if (Date.now() - this.lastTime > this.INTERVAL) {
-            this.METEORS.push(
-                new Meteor(this.ctx,
-                    Math.random() * window.innerWidth,
-                    -100,
-                    Math.max(30, Math.random() * 100)
-                ));
+            var meteor = new Meteor(this.ctx,
+                Math.random() * window.innerWidth,
+                -100,
+                Math.max(30, Math.random() * 100)
+            );
+            var that = this;
+            meteor.destroyCallback = function (meteor_) {
+                for (var index = 0; index < that.METEORS.length; index++) {
+                    var m = that.METEORS[index];
+                    if (m === meteor_) {
+                        that.METEORS.splice(index, 1);
+                        break;
+                    }
+                }
+            };
+            this.METEORS.push(meteor);
             this.lastTime = Date.now();
         }
         // Clean
@@ -31,6 +41,7 @@ var MeteorHandler = class {
             var meteor = this.METEORS[index];
             if (ship.overlaps(meteor))
                 this.endGameCallback();
+            ship.checkLaserOverlaps(meteor);
         }
     }
 

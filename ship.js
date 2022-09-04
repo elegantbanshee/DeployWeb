@@ -8,9 +8,11 @@ var Ship = class {
         this.moveX = x;
         this.moveY = y;
         this.MOVE_AMOUNT = 100;
+        this.LASERS = [];
     }
 
     draw(delta) {
+        console.log(this.LASERS.length);
         // Logic
         if (this.x < this.moveX)
             this.x += delta * this.MOVE_AMOUNT;
@@ -32,6 +34,12 @@ var Ship = class {
 
         this.ctx.closePath();
         this.ctx.stroke();
+
+        // Laser
+        for (var index = 0; index < this.LASERS.length; index++) {
+            var laser = this.LASERS[index];
+            laser.draw(delta);
+        }
     }
 
     moveTo(x, y) {
@@ -59,5 +67,35 @@ var Ship = class {
         return leftDistance <= meteor.r ||
             middleDistance <= meteor.r ||
             rightDistance <= meteor.r;
+    }
+
+    onClick() {
+        var laser = new Laser(this.ctx, this.x, this.y);
+        var that = this;
+        laser.destroyCallback = function (laser_) {
+            for (var index = 0; index < that.LASERS.length; index++) {
+                var l = that.LASERS[index];
+                if (l === laser_) {
+                    that.LASERS.splice(index, 1);
+                    break;
+                }
+            }
+        };
+        this.LASERS.push(laser);
+    }
+
+    reset() {
+        this.LASERS = [];
+    }
+
+    checkLaserOverlaps(meteor) {
+        for (var index = 0; index < this.LASERS.length; index++) {
+            var laser = this.LASERS[index];
+            if (laser.overlaps(meteor)) {
+                this.LASERS.splice(index, 1);
+                meteor.destroy();
+                break;
+            }
+        }
     }
 }

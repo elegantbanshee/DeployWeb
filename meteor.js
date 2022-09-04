@@ -5,6 +5,7 @@ var Meteor = class {
         this.y = y;
         this.r = r;
         this.MOVE_AMOUNT = 50;
+        this.destroyCallback = function () {};
     }
 
     draw() {
@@ -25,5 +26,9 @@ var Meteor = class {
 
     update(delta) {
         this.y += delta * this.MOVE_AMOUNT;
+    }
+
+    destroy() {
+        this.destroyCallback(this);
     }
 }
