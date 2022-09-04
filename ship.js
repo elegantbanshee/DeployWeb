@@ -12,7 +12,6 @@ var Ship = class {
     }
 
     draw(delta) {
-        console.log(this.LASERS.length);
         // Logic
         if (this.x < this.moveX)
             this.x += delta * this.MOVE_AMOUNT;
