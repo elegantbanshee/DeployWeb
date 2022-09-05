@@ -8,6 +8,7 @@ var Main = class {
         this.score = -1;
         this.lastScoreTime = 0;
         this.SCORE_INTERVAL = 1000;
+        this.hasStartedMusic = false;
 
         this.initCanvas();
         this.addResizeEvent();
@@ -30,6 +31,7 @@ var Main = class {
         this.score = -1;
         this.ship.reset();
         this.soundManager.play(this.soundManager.EXPLOSION);
+        this.soundManager.reset();
     }
 
     initCanvas() {
@@ -111,7 +113,8 @@ var Main = class {
     }
 
     _onClick(that) {
-        that.ship.onClick()
+        that.ship.onClick();
+        that.startMusic()
     }
 
     _touchMove(that, event) {
@@ -120,6 +123,14 @@ var Main = class {
 
         if (event.touches.length === 1)
             that._mouseMove(that, event.touches[0]);
+        that.startMusic();
+    }
+
+    startMusic() {
+        if (!this.hasStartedMusic) {
+            this.hasStartedMusic = true;
+            this.soundManager.startMusic();
+        }
     }
 }
 
