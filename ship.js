@@ -1,5 +1,5 @@
 var Ship = class {
-    constructor(ctx, x, y, width, height) {
+    constructor(ctx, x, y, width, height, soundManager) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -9,6 +9,7 @@ var Ship = class {
         this.moveY = y;
         this.MOVE_AMOUNT = 100;
         this.LASERS = [];
+        this.soundManager = soundManager;
     }
 
     draw(delta) {
@@ -81,6 +82,8 @@ var Ship = class {
             }
         };
         this.LASERS.push(laser);
+
+        this.soundManager.play(this.soundManager.LASER_FIRE);
     }
 
     reset() {

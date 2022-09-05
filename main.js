@@ -2,6 +2,7 @@ var Main = class {
 
     constructor() {
         this.lastDraw = Date.now();
+        this.soundManager = new SoundManager();
         this.meteorHandler = this.createMeteorHandler();
         this.ship = this.createShip();
         this.score = -1;
@@ -15,7 +16,7 @@ var Main = class {
     createMeteorHandler() {
         var canvas = document.getElementById("canvas");
 
-        var meteor = new MeteorHandler(canvas.getContext("2d"));
+        var meteor = new MeteorHandler(canvas.getContext("2d"), this.soundManager);
         var that = this;
         meteor.endGameCallback = function () {
             that.resetGame();
@@ -28,6 +29,7 @@ var Main = class {
         this.meteorHandler.reset();
         this.score = -1;
         this.ship.reset();
+        this.soundManager.play(this.soundManager.EXPLOSION);
     }
 
     initCanvas() {
@@ -43,7 +45,8 @@ var Main = class {
             window.innerWidth / 2,
             window.innerHeight - 200,
             75,
-            75);
+            75,
+            this.soundManager);
         return ship;
     }
 

@@ -1,6 +1,7 @@
 var MeteorHandler = class {
-    constructor(ctx) {
+    constructor(ctx, soundManager) {
         this.ctx = ctx;
+        this.soundManager = soundManager;
         this.METEORS = [];
         this.lastTime = 0;
         this.INTERVAL = 3000;
@@ -21,6 +22,7 @@ var MeteorHandler = class {
                     var m = that.METEORS[index];
                     if (m === meteor_) {
                         that.METEORS.splice(index, 1);
+                        that.soundManager.play(that.soundManager.EXPLOSION);
                         break;
                     }
                 }
