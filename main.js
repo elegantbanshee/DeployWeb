@@ -54,7 +54,7 @@ var Main = class {
 
     draw(that, delta) {
         // Logic
-        that.meteorHandler.update(that.ship);
+        that.meteorHandler.update(that.ship, delta);
         that.updateScore();
         // Draw
         that.clearCanvas();

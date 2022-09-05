@@ -3,14 +3,14 @@ var MeteorHandler = class {
         this.ctx = ctx;
         this.soundManager = soundManager;
         this.METEORS = [];
-        this.lastTime = 0;
-        this.INTERVAL = 3000;
+        this.lastTime = 3;
+        this.INTERVAL = 3;
         this.endGameCallback = function () {};
     }
 
-    update(ship) {
+    update(ship, delta) {
         // Add meteor
-        if (Date.now() - this.lastTime > this.INTERVAL) {
+        if (this.lastTime > this.INTERVAL) {
             var meteor = new Meteor(this.ctx,
                 Math.random() * window.innerWidth,
                 -100,
@@ -28,8 +28,9 @@ var MeteorHandler = class {
                 }
             };
             this.METEORS.push(meteor);
-            this.lastTime = Date.now();
+            this.lastTime = 0;
         }
+        this.lastTime += delta;
         // Clean
         for (var index = 0; index < this.METEORS.length; index++) {
             var meteor = this.METEORS[index];
