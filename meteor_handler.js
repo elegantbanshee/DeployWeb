@@ -14,7 +14,8 @@ var MeteorHandler = class {
             var meteor = new Meteor(this.ctx,
                 Math.random() * window.innerWidth,
                 -100,
-                Math.max(30, Math.random() * 100)
+                Math.max(30, Math.random() * 100),
+                this.lastTime
             );
             var that = this;
             meteor.destroyCallback = function (meteor_) {
@@ -57,5 +58,6 @@ var MeteorHandler = class {
 
     reset() {
         this.METEORS = [];
+        this.lastTime = 3;
     }
 }
