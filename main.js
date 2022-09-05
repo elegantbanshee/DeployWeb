@@ -5,9 +5,9 @@ var Main = class {
         this.soundManager = new SoundManager();
         this.meteorHandler = this.createMeteorHandler();
         this.ship = this.createShip();
-        this.score = -1;
+        this.score = 0;
         this.lastScoreTime = 0;
-        this.SCORE_INTERVAL = 1000;
+        this.SCORE_INTERVAL = 1;
         this.hasStartedMusic = false;
 
         this.initCanvas();
@@ -28,7 +28,7 @@ var Main = class {
 
     resetGame() {
         this.meteorHandler.reset();
-        this.score = -1;
+        this.score = 0;
         this.ship.reset();
         this.soundManager.play(this.soundManager.EXPLOSION);
         this.soundManager.reset();
@@ -55,7 +55,7 @@ var Main = class {
     draw(that, delta) {
         // Logic
         that.meteorHandler.update(that.ship, delta);
-        that.updateScore();
+        that.updateScore(delta);
         // Draw
         that.clearCanvas();
         that.ship.draw(delta);
@@ -63,11 +63,12 @@ var Main = class {
         that.drawScore();
     }
 
-    updateScore() {
-        if (Date.now() - this.lastScoreTime >= this.SCORE_INTERVAL) {
+    updateScore(delta) {
+        if (this.lastScoreTime >= this.SCORE_INTERVAL) {
             this.score += 1;
-            this.lastScoreTime = Date.now();
+            this.lastScoreTime = 0;
         }
+        this.lastScoreTime += delta
     }
 
     drawScore() {
