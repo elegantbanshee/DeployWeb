@@ -54,7 +54,7 @@ var MeteorHandler = class {
 
     draw(delta) {
         for (var index = 0; index < this.METEORS.length; index++) {
-            this.METEORS[index].update(delta, this.isFrozen(delta));
+            this.METEORS[index].update(delta, this.isFrozen(delta, true));
             this.METEORS[index].draw();
         }
     }
@@ -69,9 +69,10 @@ var MeteorHandler = class {
         this.freezeTime = this.FREEZE_TIME;
     }
 
-    isFrozen(delta) {
+    isFrozen(delta, update) {
         if (this.freezeTime > 0) {
-            this.freezeTime -= delta;
+            if (update)
+                this.freezeTime -= delta;
             return true;
         }
         return false;

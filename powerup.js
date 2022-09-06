@@ -16,9 +16,9 @@ var Powerup = class  {
         this.type = type;
     }
 
-    draw(delta) {
+    draw(delta, frozen) {
         // Logic
-        if (!this.stop) {
+        if (!this.stop && !frozen) {
             this.y += delta * this.MOVE_AMOUNT;
             if (this.diff >= 0) {
                 this.y += delta * this.MOVE_AMOUNT * this.diff;
@@ -27,18 +27,22 @@ var Powerup = class  {
         }
 
         // Draw
+        var image = null;
         switch (this.type) {
             case this.TYPE_CLEAR:
-                this.ctx.fillStyle = "#ff0000";
+                image = document.getElementById("powerup_red")
                 break;
             case this.TYPE_FREEZE:
-                this.ctx.fillStyle = "#00ffd7";
+                image = document.getElementById("powerup_blue");
                 break;
         }
-        this.ctx.strokeStyle = "#ffffff"
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-        this.ctx.stroke();
-        this.ctx.fill();
+
+        this.ctx.drawImage(
+            image,
+            this.x - this.r,
+            this.y - this.r,
+            this.r * 2,
+            this.r * 2
+        );
     }
 }

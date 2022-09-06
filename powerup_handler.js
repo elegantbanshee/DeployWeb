@@ -39,6 +39,7 @@ var PowerupHandler = class  {
                 var laser = ship.LASERS[laserIndex];
                 if (laser.overlaps(powerup)) {
                     this.POWERUPS.splice(index, 1);
+                    ship.LASERS.splice(laserIndex, 1);
                     break;
                 }
             }
@@ -48,7 +49,7 @@ var PowerupHandler = class  {
     draw(delta) {
         for (var index = 0; index < this.POWERUPS.length; index++) {
             var powerup = this.POWERUPS[index];
-            powerup.draw(delta);
+            powerup.draw(delta, this.meteorHandler.isFrozen(delta, false));
         }
 
         if (this.powerup) {

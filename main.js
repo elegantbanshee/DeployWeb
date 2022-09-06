@@ -133,6 +133,9 @@ var Main = class {
 
         if (event.touches.length === 1)
             that._mouseMove(that, event.touches[0]);
+
+        if (event.touches.length === 3)
+            that.powerupHandler.use();
         that.startMusic();
     }
 
