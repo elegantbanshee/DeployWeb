@@ -9,3 +9,7 @@ body {
     border: 0px;
     margin: 0px;
 }
+
+#meteor {
+    display: none;
+}

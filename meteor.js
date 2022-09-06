@@ -23,6 +23,15 @@ var Meteor = class {
         );
 
         this.ctx.stroke();
+
+        var img = document.getElementById("meteor");
+        this.ctx.drawImage(
+            img,
+            this.x - this.r,
+            this.y - this.r,
+            this.r * 2,
+            this.r * 2
+        );
     }
 
     update(delta, frozen) {

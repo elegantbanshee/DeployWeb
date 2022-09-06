@@ -156,12 +156,16 @@ var Main = class {
         console.log(event.code);
 
         // Debug spawn laser
-        if (event.code === "KeyA")
+        if (event.code === "Numpad1")
             this.bigLaserHandler.spawnLaser();
 
         // Debug spawn powerup
-        if (event.code === "KeyS")
+        if (event.code === "Numpad2")
             this.powerupHandler.spawnPowerup();
+
+        // Debug outlines
+        if (event.code === "Numpad3")
+            Global.debugOutlines = !Global.debugOutlines;
 
         // Powerup
         if (event.code === "Space")
