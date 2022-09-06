@@ -1,5 +1,5 @@
 var Ship = class {
-    constructor(ctx, x, y, width, height, soundManager) {
+    constructor(ctx, x, y, width, height, soundManager, bigLaserHandler) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -10,6 +10,7 @@ var Ship = class {
         this.MOVE_AMOUNT = 100;
         this.LASERS = [];
         this.soundManager = soundManager;
+        this.bigLaserHandler = bigLaserHandler;
     }
 
     draw(delta) {
@@ -40,6 +41,18 @@ var Ship = class {
             var laser = this.LASERS[index];
             laser.draw(delta);
         }
+        for (var index = 0; index < this.LASERS.length; index++) {
+            var laser = this.LASERS[index];
+            for (var bigIndex = 0; bigIndex < this.bigLaserHandler.LASERS.length; bigIndex++) {
+                var bigLaser = this.bigLaserHandler.LASERS[bigIndex];
+                if (bigLaser.overlapsLaser(laser)) {
+                    this.LASERS.splice(index, 1);
+                    break;
+                }
+            }
+        }
+
+
     }
 
     moveTo(x, y) {

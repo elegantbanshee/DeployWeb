@@ -50,7 +50,8 @@ var Main = class {
             window.innerHeight - 200,
             75,
             75,
-            this.soundManager);
+            this.soundManager,
+            this.bigLaserHandler);
         return ship;
     }
 
@@ -146,6 +147,12 @@ var Main = class {
         };
         return bigLaserHandler;
     }
+
+    _keyPress(event) {
+        console.log(event.code);
+        if (event.code === "KeyA")
+            this.bigLaserHandler.spawnLaser();
+    }
 }
 
 
@@ -161,4 +168,7 @@ window.addEventListener("touchmove", function (event) {
 });
 window.addEventListener("click", function (event) {
     main._onClick(main);
+});
+window.addEventListener("keypress", function (event) {
+    main._keyPress(event);
 });

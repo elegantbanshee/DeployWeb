@@ -8,7 +8,7 @@ var BigLaser = class  {
         this.HEIGHT = window.innerHeight;
         this.aliveTime = 0;
         this.warningTime = 3;
-        this.endTime = 8;
+        this.endTime = 4;
         this.destroyCallback = function () {};
     }
 
@@ -44,5 +44,17 @@ var BigLaser = class  {
 
         return meteorRight > left && meteorLeft < right;
 
+    }
+
+    overlapsLaser(laser) {
+        if (this.aliveTime <= this.warningTime)
+            return false;
+
+        var laserLeft = laser.x - laser.width / 2;
+        var laserRight = laser.x + laser.width / 2;
+        var left = this.x - this.WIDTH / 2;
+        var right = this.x + this.WIDTH / 2;
+
+        return laserRight > left && laserLeft < right;
     }
 }
