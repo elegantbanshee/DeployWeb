@@ -8,7 +8,7 @@ var MeteorHandler = class {
         this.endGameCallback = function () {};
     }
 
-    update(ship, delta) {
+    update(ship, bigLaserHandler, delta) {
         // Add meteor
         if (this.lastTime > this.INTERVAL) {
             var meteor = new Meteor(this.ctx,
@@ -46,6 +46,7 @@ var MeteorHandler = class {
             if (ship.overlaps(meteor))
                 this.endGameCallback();
             ship.checkLaserOverlaps(meteor);
+            bigLaserHandler.checkLaserOverlaps(meteor);
         }
     }
 

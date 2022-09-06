@@ -100,4 +100,16 @@ var Ship = class {
             }
         }
     }
+
+    checkBigLaserOverlaps(laser) {
+        if (laser.aliveTime <= laser.warningTime)
+            return false;
+
+        var laserLeft = laser.x - laser.WIDTH / 2;
+        var laserRight = laser.x + laser.WIDTH / 2;
+        var left = this.x - this.width / 2;
+        var right = this.x + this.width / 2;
+
+        return right >= laserLeft && left <=laserRight;
+    }
 }

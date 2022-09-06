@@ -4,6 +4,7 @@ var Main = class {
         this.lastDraw = Date.now();
         this.soundManager = new SoundManager();
         this.meteorHandler = this.createMeteorHandler();
+        this.bigLaserHandler = this.createBigLaserHandler();
         this.ship = this.createShip();
         this.score = 0;
         this.lastScoreTime = 0;
@@ -32,6 +33,7 @@ var Main = class {
         this.ship.reset();
         this.soundManager.play(this.soundManager.EXPLOSION);
         this.soundManager.reset();
+        this.bigLaserHandler.reset();
     }
 
     initCanvas() {
@@ -54,13 +56,15 @@ var Main = class {
 
     draw(that, delta) {
         // Logic
-        that.meteorHandler.update(that.ship, delta);
+        that.meteorHandler.update(that.ship, that.bigLaserHandler, delta);
         that.updateScore(delta);
+        that.bigLaserHandler.update(delta, that.score, that.ship);
         // Draw
         that.clearCanvas();
         that.ship.draw(delta);
         that.meteorHandler.draw(delta);
         that.drawScore();
+        that.bigLaserHandler.draw(delta);
     }
 
     updateScore(delta) {
@@ -132,6 +136,15 @@ var Main = class {
             this.hasStartedMusic = true;
             this.soundManager.startMusic();
         }
+    }
+
+    createBigLaserHandler() {
+        var bigLaserHandler =  new BigLaserHandler(this.getCtx(), this.soundManager);
+        var that = this;
+        bigLaserHandler.endGameCallback = function () {
+            that.resetGame();
+        };
+        return bigLaserHandler;
     }
 }
 
