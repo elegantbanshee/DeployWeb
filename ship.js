@@ -65,6 +65,10 @@ var Ship = class {
         var middle = [this.x, this.y - this.height / 2];
         var right = [this.x + this.width / 2, this.y + this.width / 2];
 
+        var left_ = [this.x - this.width / 4 , this.y];
+        var middle_ = [this.x, this.y + this.height / 2];
+        var right_ = [this.x + this.width / 4, this.y];
+
         var leftDistance = Math.sqrt(
             Math.pow(left[0] - meteor.x, 2) +
             Math.pow(left[1] - meteor.y, 2)
@@ -77,9 +81,26 @@ var Ship = class {
             Math.pow(right[0] - meteor.x, 2) +
             Math.pow(right[1] - meteor.y, 2)
         );
+
+        var leftDistance_ = Math.sqrt(
+            Math.pow(left_[0] - meteor.x, 2) +
+            Math.pow(left_[1] - meteor.y, 2)
+        );
+        var middleDistance_ = Math.sqrt(
+            Math.pow(middle_[0] - meteor.x, 2) +
+            Math.pow(middle_[1] - meteor.y, 2)
+        );
+        var rightDistance_ = Math.sqrt(
+            Math.pow(right_[0] - meteor.x, 2) +
+            Math.pow(right_[1] - meteor.y, 2)
+        );
+
         return leftDistance <= meteor.r ||
             middleDistance <= meteor.r ||
-            rightDistance <= meteor.r;
+            rightDistance <= meteor.r ||
+            leftDistance_ <= meteor.r ||
+            middleDistance_ <= meteor.r ||
+            rightDistance_ <= meteor.r;
     }
 
     onClick() {
@@ -124,5 +145,9 @@ var Ship = class {
         var right = this.x + this.width / 2;
 
         return right >= laserLeft && left <=laserRight;
+    }
+
+    checkPowerupOverlaps(powerup) {
+        return this.overlaps(powerup);
     }
 }

@@ -25,7 +25,9 @@ var Meteor = class {
         this.ctx.stroke();
     }
 
-    update(delta) {
+    update(delta, frozen) {
+        if (frozen)
+            return;
         this.y += delta * this.MOVE_AMOUNT;
         if (this.diff >= 0) {
             this.y += delta * this.MOVE_AMOUNT * this.diff;

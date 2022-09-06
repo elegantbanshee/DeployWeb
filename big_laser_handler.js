@@ -62,4 +62,8 @@ var BigLaserHandler = class  {
             }
         }
     }
+
+    handleClearPowerup() {
+        this.reset();
+    }
 }

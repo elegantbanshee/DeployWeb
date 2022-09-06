@@ -6,6 +6,8 @@ var MeteorHandler = class {
         this.lastTime = 3;
         this.INTERVAL = 3;
         this.endGameCallback = function () {};
+        this.freezeTime = 0;
+        this.FREEZE_TIME = 10;
     }
 
     update(ship, bigLaserHandler, delta) {
@@ -52,7 +54,7 @@ var MeteorHandler = class {
 
     draw(delta) {
         for (var index = 0; index < this.METEORS.length; index++) {
-            this.METEORS[index].update(delta);
+            this.METEORS[index].update(delta, this.isFrozen(delta));
             this.METEORS[index].draw();
         }
     }
@@ -60,5 +62,22 @@ var MeteorHandler = class {
     reset() {
         this.METEORS = [];
         this.lastTime = 3;
+        this.freezeTime = 0;
+    }
+
+    handleFreezePowerup() {
+        this.freezeTime = this.FREEZE_TIME;
+    }
+
+    isFrozen(delta) {
+        if (this.freezeTime > 0) {
+            this.freezeTime -= delta;
+            return true;
+        }
+        return false;
+    }
+
+    handleClearPowerup() {
+        this.reset();
     }
 }

@@ -5,6 +5,7 @@ var Main = class {
         this.soundManager = new SoundManager();
         this.meteorHandler = this.createMeteorHandler();
         this.bigLaserHandler = this.createBigLaserHandler();
+        this.powerupHandler = this.createPowerupHandler();
         this.ship = this.createShip();
         this.score = 0;
         this.lastScoreTime = 0;
@@ -34,6 +35,7 @@ var Main = class {
         this.soundManager.play(this.soundManager.EXPLOSION);
         this.soundManager.reset();
         this.bigLaserHandler.reset();
+        this.powerupHandler.reset();
     }
 
     initCanvas() {
@@ -60,12 +62,14 @@ var Main = class {
         that.meteorHandler.update(that.ship, that.bigLaserHandler, delta);
         that.updateScore(delta);
         that.bigLaserHandler.update(delta, that.score, that.ship);
+        that.powerupHandler.update(delta, that.ship);
         // Draw
         that.clearCanvas();
         that.ship.draw(delta);
         that.meteorHandler.draw(delta);
-        that.drawScore();
+        that.powerupHandler.draw(delta);
         that.bigLaserHandler.draw(delta);
+        that.drawScore();
     }
 
     updateScore(delta) {
@@ -150,8 +154,28 @@ var Main = class {
 
     _keyPress(event) {
         console.log(event.code);
+
+        // Debug spawn laser
         if (event.code === "KeyA")
             this.bigLaserHandler.spawnLaser();
+
+        // Debug spawn powerup
+        if (event.code === "KeyS")
+            this.powerupHandler.spawnPowerup();
+
+        // Powerup
+        if (event.code === "Space")
+            this.powerupHandler.use();
+    }
+
+    createPowerupHandler() {
+        var powerupHandler = new PowerupHandler(
+            this.getCtx(),
+            this.soundManager,
+            this.meteorHandler,
+            this.bigLaserHandler
+        );
+        return powerupHandler;
     }
 }
 
