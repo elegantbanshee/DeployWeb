@@ -168,7 +168,7 @@ var Main = class {
 
         // Debug outlines
         if (event.code === "Numpad3")
-            Global.debugOutlines = !Global.debugOutlines;
+            DeployGlobal.debugOutlines = !DeployGlobal.debugOutlines;
 
         // Powerup
         if (event.code === "Space")
