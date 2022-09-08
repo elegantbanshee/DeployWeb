@@ -10,19 +10,21 @@ var Meteor = class {
     }
 
     draw() {
-        this.ctx.strokeStyle = "#62ff00";
-        this.ctx.fillStyle = "#62ff00";
-        this.ctx.beginPath();
+        if (DeployGlobal.debugOutlines) {
+            this.ctx.strokeStyle = "#62ff00";
+            this.ctx.fillStyle = "#62ff00";
+            this.ctx.beginPath();
 
-        this.ctx.arc(
-            this.x,
-            this.y,
-            this.r,
-            0,
-            2 * Math.PI
-        );
+            this.ctx.arc(
+                this.x,
+                this.y,
+                this.r,
+                0,
+                2 * Math.PI
+            );
 
-        this.ctx.stroke();
+            this.ctx.stroke();
+        }
 
         var img = document.getElementById("meteor");
         this.ctx.drawImage(
