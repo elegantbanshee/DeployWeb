@@ -2,6 +2,9 @@ var SoundManager = class {
     constructor() {
         this.LASER_FIRE = "audio/laser.mp3";
         this.EXPLOSION = "audio/explosion.mp3";
+        this.BIG_LASER_ACTIVE = "audio/big_laser_active.mp3";
+        this.BIG_LASER_CHARGING = "audio/big_laser_charging.mp3"
+
         this.MUSIC_INTRO = "audio/music/FIS_intro1.mp3";
         this.MUSIC_0 = "audio/music/FIS_loop1.mp3";
         this.MUSIC_1 = "audio/music/FIS_loop2.mp3";

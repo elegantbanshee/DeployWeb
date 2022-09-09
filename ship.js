@@ -80,6 +80,8 @@ var Ship = class {
         var middle_ = [this.x, this.y + this.height / 2];
         var right_ = [this.x + this.width / 4, this.y];
 
+        var exactMiddle = [this.x, this.y];
+
         var leftDistance = Math.sqrt(
             Math.pow(left[0] - meteor.x, 2) +
             Math.pow(left[1] - meteor.y, 2)
@@ -106,12 +108,18 @@ var Ship = class {
             Math.pow(right_[1] - meteor.y, 2)
         );
 
+        var exactMiddleDistace = Math.sqrt(
+            Math.pow(exactMiddle[0] - meteor.x, 2) +
+            Math.pow(exactMiddle[1] - meteor.y, 2)
+        );
+
         return leftDistance <= meteor.r ||
             middleDistance <= meteor.r ||
             rightDistance <= meteor.r ||
             leftDistance_ <= meteor.r ||
             middleDistance_ <= meteor.r ||
-            rightDistance_ <= meteor.r;
+            rightDistance_ <= meteor.r ||
+            exactMiddleDistace <= meteor.r;
     }
 
     onClick() {

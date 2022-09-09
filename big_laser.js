@@ -10,6 +10,8 @@ var BigLaser = class  {
         this.warningTime = 3;
         this.endTime = 4;
         this.destroyCallback = function () {};
+        this.didPlayAudioActive = false;
+        this.didPlayAudioCharging = false;
     }
 
     draw(delta) {
@@ -48,6 +50,16 @@ var BigLaser = class  {
         this.aliveTime += delta;
         if (this.aliveTime > this.endTime)
             this.destroyCallback();
+
+        // Check audio
+        if (this.aliveTime > this.warningTime && !this.didPlayAudio) {
+            this.didPlayAudio = true;
+            this.soundManger.play(this.soundManger.BIG_LASER_ACTIVE);
+        }
+        if (this.aliveTime <= this.warningTime && !this.didPlayAudioCharging) {
+            this.didPlayAudioCharging = true;
+            this.soundManger.play(this.soundManger.BIG_LASER_CHARGING);
+        }
     }
 
     overlaps(meteor) {
