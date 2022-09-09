@@ -11,12 +11,23 @@ var Laser = class {
 
     draw(delta) {
         // Draw
-        this.ctx.fillStyle = "#ffe300";
-        this.ctx.strokeStyle = "#ffe300";
+        if (DeployGlobal.debugOutlines) {
+            this.ctx.fillStyle = "#ffe300";
+            this.ctx.strokeStyle = "#ffe300";
 
-        this.ctx.beginPath();
-        this.ctx.rect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
-        this.ctx.stroke();
+            this.ctx.beginPath();
+            this.ctx.rect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+            this.ctx.stroke();
+        }
+
+        var img = document.getElementById("laser");
+        this.ctx.drawImage(
+            img,
+            this.x - this.width / 2,
+            this.y - this.height / 2,
+            this.width,
+            this.height
+        );
 
         // Logic
         this.y -= delta * this.MOVE_AMOUNT;

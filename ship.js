@@ -25,16 +25,27 @@ var Ship = class {
             this.y -= delta * this.MOVE_AMOUNT;
 
         // Draw
-        this.ctx.strokeStyle = "#ffffff";
-        this.ctx.fillStyle = "#ffffff";
-        this.ctx.beginPath();
+        if (DeployGlobal.debugOutlines) {
+            this.ctx.strokeStyle = "#ffffff";
+            this.ctx.fillStyle = "#ffffff";
+            this.ctx.beginPath();
 
-        this.ctx.moveTo(this.x - this.width / 2, this.y + this.height / 2);
-        this.ctx.lineTo(this.x, this.y - this.height / 2);
-        this.ctx.lineTo(this.x + this.width / 2, this.y + this.width / 2);
+            this.ctx.moveTo(this.x - this.width / 2, this.y + this.height / 2);
+            this.ctx.lineTo(this.x, this.y - this.height / 2);
+            this.ctx.lineTo(this.x + this.width / 2, this.y + this.width / 2);
 
-        this.ctx.closePath();
-        this.ctx.stroke();
+            this.ctx.closePath();
+            this.ctx.stroke();
+        }
+
+        var img = document.getElementById("ship");
+        this.ctx.drawImage(
+            img,
+            this.x - this.width / 2,
+            this.y - this.height / 2,
+            this.width,
+            this.height
+        );
 
         // Laser
         for (var index = 0; index < this.LASERS.length; index++) {

@@ -14,19 +14,36 @@ var BigLaser = class  {
 
     draw(delta) {
         // Draw
-        if (this.aliveTime <= this.warningTime) {
-            this.ctx.fillStyle = "#ffe400";
-            this.ctx.strokeStyle = "#ffe400";
-        }
-        else {
-            this.ctx.fillStyle = "#ff0000";
-            this.ctx.strokeStyle = "#ff0000";
+        if (DeployGlobal.debugOutlines) {
+            if (this.aliveTime <= this.warningTime) {
+                this.ctx.fillStyle = "#ffe400";
+                this.ctx.strokeStyle = "#ffe400";
+            }
+            else {
+                this.ctx.fillStyle = "#ff0000";
+                this.ctx.strokeStyle = "#ff0000";
+            }
+
+            this.ctx.beginPath();
+            this.ctx.rect(this.x - this.WIDTH / 2, this.Y - this.HEIGHT / 2, this.WIDTH, this.HEIGHT);
+            this.ctx.stroke();
         }
 
-        this.ctx.beginPath();
-        this.ctx.rect(this.x - this.WIDTH / 2, this.Y - this.HEIGHT / 2, this.WIDTH, this.HEIGHT);
-        this.ctx.stroke();
-        this.ctx.fill();
+        var img = null;
+        if (this.aliveTime <= this.warningTime) {
+            img = document.getElementById("laserBigYellow");
+        }
+        else {
+            img = document.getElementById("laserBigRed");
+        }
+        this.ctx.drawImage(
+            img,
+            this.x - this.WIDTH / 2,
+            this.Y - this.HEIGHT / 2,
+            this.WIDTH,
+            this.HEIGHT
+        );
+
         // Check remove
         this.aliveTime += delta;
         if (this.aliveTime > this.endTime)
